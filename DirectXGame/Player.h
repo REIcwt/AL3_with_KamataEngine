@@ -46,30 +46,6 @@ public:
 	//
 	void OnCollision(const Enemy* enemy);
 
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
-	bool isVisible_ = true;
-
->>>>>>>>> Temporary merge branch 2
 private:
 	// 3D
 	Model* model_ = nullptr;
@@ -146,11 +122,6 @@ private:
 	void WallCollision(const CollisionMapInfo& info);
 
 	///
-<<<<<<<<< Temporary merge branch 1
 
-=========
-	DeathParticles* deathParticles_ = nullptr;
-	bool isDead_ = false;
->>>>>>>>> Temporary merge branch 2
 	///
 };

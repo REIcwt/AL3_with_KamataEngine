@@ -111,6 +111,17 @@ void GameScene::Update() {
 			worldTransformBlock->UpdateMatrix();
 		}
 	}
+	player_->Update();
+
+	for (Enemy* enemy : enemies_) {
+		enemy->Update();
+	}
+
+	CheckAllCollision();
+
+	if (deathParticles_) {
+		deathParticles_->Update();
+	}
 }
 
 void GameScene::CheckAllCollision() {
