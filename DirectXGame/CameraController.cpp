@@ -4,8 +4,6 @@
 #include "WorldTransform.h"
 #include "cal.h"
 #include <algorithm>
-#include <cmath>
-#include <iostream>
 
 CameraController::CameraController(){};
 CameraController::~CameraController(){};
