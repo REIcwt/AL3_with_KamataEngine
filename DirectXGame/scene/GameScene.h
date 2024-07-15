@@ -1,12 +1,17 @@
 #pragma once
 
 #include "Audio.h"
+#include "CameraController.h"
 #include "DebugCamera.h"
 #include "DirectXCommon.h"
+#include "Enemy.h"
 #include "Input.h"
+#include "MapChipField.h"
 #include "Model.h"
 #include "Player.h"
+#include "Skydome.h"
 #include "Sprite.h"
+#include "TextureManager.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "vector"
@@ -42,6 +47,35 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// creat mapchip blocks
+	/// </summary>
+	void GenerateBlocks() {
+		// num
+		uint32_t numBlockVirtical = mapChipField_->GetNumBlockVirtical();
+		uint32_t numBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
+
+		// world change
+		worldTransformBlocks_.resize(numBlockVirtical);
+		for (uint32_t i = 0; i < numBlockVirtical; ++i) {
+			worldTransformBlocks_[i].resize(numBlockHorizontal);
+		}
+
+		// creat
+		for (uint32_t i = 0; i < numBlockVirtical; ++i) {
+			for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
+				if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+					WorldTransform* worldTransform = new WorldTransform();
+					worldTransform->Initialize();
+					worldTransformBlocks_[i][j] = worldTransform;
+					worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j, i);
+				}
+			}
+		}
+	};
+
+	void CheckAllCollision();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -49,22 +83,35 @@ private: // メンバ変数
 
 	// player
 	Player* player_ = nullptr;
+	Model* modelPlayer_ = nullptr;
+
+	// Enemy
+	Enemy* enemy_ = nullptr;
+	Model* enemyModel_ = nullptr;
+	static inline const int32_t kEnemyNum = 3;
+	std::list<Enemy*> enemies_;
+
+	// skydome
+	Skydome* skydome_ = nullptr;
+
+	// mapchip insert
+	MapChipField* mapChipField_;
 
 	//
 	uint32_t textureHandle_ = 0;
 	// 2D
 	Sprite* sprite_ = nullptr;
 	// 3D
-	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 
 	Model* model_ = nullptr;
-
-	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	Model* modelSkydome_ = nullptr;
 
 	// Cam
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
+	CameraController* cameraController_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
