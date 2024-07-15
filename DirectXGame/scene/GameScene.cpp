@@ -11,7 +11,7 @@ GameScene::~GameScene() {
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
-		}
+}
 		worldTransformBlocks_.clear();
 	}
 }
@@ -89,7 +89,7 @@ void GameScene::Update() {
 		viewProjection_.TransferMatrix();
 	} else {
 		viewProjection_.UpdateMatrix();
-	}
+}
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
