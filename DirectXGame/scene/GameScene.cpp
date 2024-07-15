@@ -109,6 +109,7 @@ void GameScene::Update() {
 		cameraController_->Update();
 		viewProjection_.UpdateMatrix();
 	}
+	// debugCamera_->Update();
 
 #endif
 
@@ -210,6 +211,35 @@ void GameScene::ChangePhase() {
 	default:
 		break;
 	}
+	player_->Update();
+
+	for (Enemy* enemy : enemies_) {
+		enemy->Update();
+	}
+
+	CheckAllCollision();
+
+	if (deathParticles_) {
+		deathParticles_->Update();
+	}
+}
+
+void GameScene::CheckAllCollision() {
+#pragma region player to enemy collision
+	AABB aabb1, aabb2;
+
+	aabb1 = player_->GetAABB();
+
+	for (Enemy* enemy : enemies_) {
+		aabb2 = enemy->GetAABB();
+
+		if (IsCollision(aabb1, aabb2)) {
+			player_->OnCollision(enemy);
+			enemy->OnCollision(player_);
+		}
+	}
+
+#pragma endregion
 }
 
 void GameScene::Draw() {
