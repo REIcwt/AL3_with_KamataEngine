@@ -103,6 +103,16 @@ private: // メンバ変数
 	MapChipField* mapChipField_;
 
 	//
+	DeathParticles* deathParticles_ = nullptr;
+	Model* deathParticlesModel_ = nullptr;
+
+	// skydome
+	Skydome* skydome_ = nullptr;
+
+	// mapchip insert
+	MapChipField* mapChipField_;
+
+	//
 	uint32_t textureHandle_ = 0;
 	// 2D
 	Sprite* sprite_ = nullptr;

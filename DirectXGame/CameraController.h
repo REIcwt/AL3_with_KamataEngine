@@ -22,12 +22,12 @@ public:
 	~CameraController();
 
 	/// <summary>
-	/// åˆæœŸåŒ–
+	/// ‰Šú‰»
 	/// </summary>
 	void Initialize(ViewProjection* viewProjection, const Vector3& position);
 
 	/// <summary>
-	/// æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‡¦ç†
+	/// –ˆƒtƒŒ[ƒ€ˆ—
 	/// </summary>
 	void Update();
 
