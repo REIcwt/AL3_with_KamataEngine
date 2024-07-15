@@ -1,6 +1,5 @@
 #pragma once
 
-#include "DeathParticles.h"
 #include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -46,13 +45,6 @@ public:
 	const AABB GetAABB();
 	//
 	void OnCollision(const Enemy* enemy);
-
-	bool IsDead() const { return isDead_; }
-
-	bool cameraStopY = false;
-	bool cameraStopX = false;
-
-	bool isVisible_ = true;
 
 private:
 	// 3D
@@ -130,7 +122,6 @@ private:
 	void WallCollision(const CollisionMapInfo& info);
 
 	///
-	DeathParticles* deathParticles_ = nullptr;
-	bool isDead_ = false;
+
 	///
 };

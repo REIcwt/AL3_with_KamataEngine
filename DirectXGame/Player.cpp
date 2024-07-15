@@ -1,6 +1,5 @@
 #define NOMINMAX
 #include "Player.h"
-#include "DeathParticles.h"
 #include "DebugCamera.h"
 #include "Input.h"
 #include "MapChipField.h"
@@ -170,7 +169,6 @@ void Player::CheckCollisionBottom(CollisionMapInfo& info) {
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock) {
 		hit = true;
-		cameraStopY = true;
 	}
 
 	// bottom right
@@ -178,7 +176,6 @@ void Player::CheckCollisionBottom(CollisionMapInfo& info) {
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock) {
 		hit = true;
-		cameraStopY = true;
 	}
 
 	if (hit) {
@@ -281,7 +278,6 @@ void Player::CeilingCollision(const CollisionMapInfo& info) {
 void Player::WallCollision(const CollisionMapInfo& info) {
 	if (info.hitWall) {
 		velocity_.x *= (1.0f - kAttenuationWall);
-		cameraStopX = true;
 	}
 }
 
@@ -302,14 +298,12 @@ void Player::SwitchGroundState(const CollisionMapInfo& info) {
 			mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 			if (mapChipType == MapChipType::kBlock) {
 				hit = true;
-				cameraStopY = true;
 			}
 
 			indexSet = mapChipField_->GetMapChipIndexSetByPosition(Add(positionsNew[kRightBottom], Vector3(0, kCollisionEpsilon, 0)));
 			mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 			if (mapChipType == MapChipType::kBlock) {
 				hit = true;
-				cameraStopY = true;
 			}
 
 			if (!hit) {
@@ -372,16 +366,9 @@ const AABB Player::GetAABB() {
 
 void Player::OnCollision(const Enemy* enemy) {
 	(void)enemy;
-	if (deathParticles_) {
-		deathParticles_->Update();
-	}
-	isDead_ = true;
+	velocity_ = Add(velocity_, Vector3(0.0f, 1.2f, 0.0f));
 }
 
 const WorldTransform& Player::GetWorldTransform() const { return worldTransform_; }
 
-void Player::Draw() {
-	if (isVisible_) {
-		model_->Draw(worldTransform_, *viewProjection_);
-	}
-}
+void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }

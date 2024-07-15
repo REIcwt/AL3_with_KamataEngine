@@ -77,24 +77,7 @@ public: // メンバ関数
 
 	void CheckAllCollision();
 
-	bool IsDead() const { return isDead_; }
-
-	// cahmge scene
-	bool IsFinished() const { return finished_; }
-
-private:
-	enum class Phase {
-		kPlay,
-		kDeath,
-	};
-	Phase phase_;
-
-	void ChangePhase();
-
-	// change scene
-	bool finished_ = false;
-
-	// メンバ変数
+private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -102,13 +85,11 @@ private:
 	// player
 	Player* player_ = nullptr;
 	Model* modelPlayer_ = nullptr;
-	bool isDead_ = false;
-	bool playerDead_ = false;
 
 	// Enemy
 	Enemy* enemy_ = nullptr;
 	Model* enemyModel_ = nullptr;
-	static inline const int32_t kEnemyNum = 1;
+	static inline const int32_t kEnemyNum = 3;
 	std::list<Enemy*> enemies_;
 
 	//
@@ -136,4 +117,8 @@ private:
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
 	CameraController* cameraController_ = nullptr;
+
+	/// <summary>
+	/// ゲームシーン用
+	/// </summary>
 };
