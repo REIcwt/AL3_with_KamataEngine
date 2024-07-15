@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Model.h"
 #include "Player.h"
+#include "Skydome.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -49,18 +50,19 @@ private: // メンバ変数
 
 	// player
 	Player* player_ = nullptr;
+	// skydome
+	Skydome* skydome_ = nullptr;
 
 	//
 	uint32_t textureHandle_ = 0;
 	// 2D
 	Sprite* sprite_ = nullptr;
 	// 3D
-	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 
 	Model* model_ = nullptr;
-
-	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	Model* modelSkydome_ = nullptr;
 
 	// Cam
 	bool isDebugCameraActive_ = false;
